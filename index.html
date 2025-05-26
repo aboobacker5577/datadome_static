@@ -9,9 +9,20 @@
   <script src="https://unpkg.com/vue@2.x"></script>
   <script src="https://staticdemo.rybbon.net/rg/reward-gallery-widget.min.js"></script>
   <link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/static-demo.rybbon.net/styles/widget/demo.css">
-  <reward-gallery-widget token="648ac7d4-16ec-4c39-b73c-69b2fec38599"></reward-gallery-widget>
-    
+  <reward-gallery-widget id="rewardWidget" token="648ac7d4-16ec-4c39-b73c-69b2fec38599"></reward-gallery-widget>
+  <script>
+    const queryString = window.location.search;
+
+    const urlParams = new URLSearchParams(queryString);
+    const token = urlParams.get('token');
+    const platform = urlParams.get('platform');
+    const widget = document.getElementById('rewardWidget');
+    if (widget) {
+        widget.setAttribute('token', token);
+        if(platform){
+            widget.setAttribute('platform', platform);
+        }
+    }
+  </script>
   </body>
 </html>
- 
- 
