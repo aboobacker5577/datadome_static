@@ -9,7 +9,7 @@
   <script src="https://unpkg.com/vue@2.x"></script>
   <script src="https://staticdemo.rybbon.net/rg/reward-gallery-widget.min.js"></script>
   <link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/static-demo.rybbon.net/styles/widget/demo.css">
-  <reward-gallery-widget id="rewardWidget" token="648ac7d4-16ec-4c39-b73c-69b2fec38599"></reward-gallery-widget>
+  <reward-gallery-widget id="rewardWidget" token="" platfor=""></reward-gallery-widget>
   <script>
     const queryString = window.location.search;
 
@@ -21,6 +21,8 @@
         widget.setAttribute('token', token);
         if(platform){
             widget.setAttribute('platform', platform);
+        } else {
+            widget.setAttribute('platform', 'production');
         }
     }
   </script>
