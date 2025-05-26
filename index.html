@@ -7,16 +7,19 @@
   </head>
     <body>
   <script src="https://unpkg.com/vue@2.x"></script>
-  <script src="https://staticdemo.rybbon.net/rg/reward-gallery-widget.min.js"></script>
+  
   <link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/static-demo.rybbon.net/styles/widget/demo.css">
-  <reward-gallery-widget id="rewardWidget"></reward-gallery-widget>
+  <script src="https://staticdemo.rybbon.net/rg/reward-gallery-widget.min.js"></script>
+    <!-- <reward-gallery-widget id="rewardWidget"></reward-gallery-widget> -->
+  <div id="widget-container"></div>
   <script>
     const queryString = window.location.search;
 
     const urlParams = new URLSearchParams(queryString);
     const token = urlParams.get('token');
     const platform = urlParams.get('platform');
-    const widget = document.getElementById('rewardWidget');
+    // const widget = document.getElementById('rewardWidget');
+    const widget = document.createElement('reward-gallery-widget');
     if (widget) {
         widget.setAttribute('token', token);
         if(platform){
@@ -24,7 +27,10 @@
         } else {
             widget.setAttribute('platform', 'production');
         }
+        
+        document.getElementById('widget-container').appendChild(widget);
     }
   </script>
+
   </body>
 </html>
