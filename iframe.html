@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Main Page with iFrame</title>
+  <title>Main Page with iFrame & Loader</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -31,6 +31,7 @@
       margin-bottom: 1rem;
     }
     button {
+      position: relative;
       background-color: #007acc;
       color: white;
       padding: 0.5rem 1.2rem;
@@ -38,9 +39,30 @@
       border-radius: 5px;
       cursor: pointer;
       font-size: 1rem;
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      user-select: none;
     }
-    button:hover {
+    button:disabled {
       background-color: #005a9c;
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+    /* Spinner styles */
+    .spinner {
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-top: 3px solid white;
+      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg);}
+      100% { transform: rotate(360deg);}
     }
     iframe {
       width: 100%;
@@ -57,11 +79,14 @@
   <label for="msgInput">Enter URL to load in iframe:</label>
   <input type="text" id="msgInput" placeholder="https://example.com" />
 
-  <button onclick="updateIframe()">Load URL in iframe</button>
+  <button id="loadBtn" onclick="updateIframe()">Load URL in iframe</button>
 
   <iframe id="myFrame" src=""></iframe>
 
   <script>
+    const loadBtn = document.getElementById('loadBtn');
+    const iframe = document.getElementById('myFrame');
+
     function updateIframe() {
       const inputUrl = document.getElementById('msgInput').value.trim();
       if (!inputUrl) {
@@ -69,15 +94,31 @@
         return;
       }
 
-      // Basic URL validation
       try {
         const url = new URL(inputUrl);
-        // You could add restrictions here, e.g. allow only HTTPS or your own domain
-        document.getElementById('myFrame').src = url.href;
+        startLoading();
+        iframe.src = url.href;
       } catch(e) {
         alert('Please enter a valid URL!');
       }
     }
+
+    // Show spinner and disable button
+    function startLoading() {
+      loadBtn.disabled = true;
+      loadBtn.innerHTML = '<div class="spinner"></div> Loading...';
+    }
+
+    // Remove spinner and enable button
+    function stopLoading() {
+      loadBtn.disabled = false;
+      loadBtn.textContent = 'Load URL in iframe';
+    }
+
+    // Listen for iframe load event to stop loader
+    iframe.addEventListener('load', () => {
+      stopLoading();
+    });
   </script>
 </body>
 </html>
