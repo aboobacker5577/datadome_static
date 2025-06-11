@@ -1,0 +1,28 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Main Page with iFrame</title>
+</head>
+<body>
+    <h1>Main Page</h1>
+    
+    <!-- Input to change data -->
+    <label>Enter Message:</label>
+    <input type="text" id="msgInput" placeholder="Type something..." />
+    <button onclick="updateIframe()">Send to iframe</button>
+
+    <hr>
+
+    <!-- iframe that will receive data via URL -->
+    <iframe id="myFrame" width="600" height="400" src="iframe-page.html?msg=Hello+iframe"></iframe>
+
+    <script>
+        function updateIframe() {
+            const msg = encodeURIComponent(document.getElementById('msgInput').value);
+            const iframe = document.getElementById('myFrame');
+            iframe.src = `iframe-page.html?msg=${msg}`;
+        }
+    </script>
+</body>
+</html>
