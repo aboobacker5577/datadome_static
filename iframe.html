@@ -8,20 +8,22 @@
     <h1>Main Page</h1>
     
     <!-- Input to change data -->
-    <label>Enter Message:</label>
+    <label>Enter IframeUrl:</label>
     <input type="text" id="msgInput" placeholder="Type something..." />
     <button onclick="updateIframe()">Send to iframe</button>
 
     <hr>
 
     <!-- iframe that will receive data via URL -->
-    <iframe id="myFrame" width="600" height="400" src="iframe-page.html?msg=Hello+iframe"></iframe>
+    <iframe id="myFrame" width="600" height="400" src=""></iframe>
 
     <script>
+        // const urlParams = new URLSearchParams(queryString);
+        // const iframeUrl = urlParams.get('iframeUrl');
         function updateIframe() {
-            const msg = encodeURIComponent(document.getElementById('msgInput').value);
+            const inputUrl = document.getElementById('msgInput').value;
             const iframe = document.getElementById('myFrame');
-            iframe.src = `iframe-page.html?msg=${msg}`;
+            iframe.src = `${inputUrl}`;
         }
     </script>
 </body>
